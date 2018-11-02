@@ -1,7 +1,7 @@
 ﻿using System;
 using InstructionsNameSpace;
 using AlmacenNameSpace;
-using DesensambladorNameSpace;
+using ModuloCodigoNamespace;
 using moduloPila;
 using System.Collections;
 
@@ -36,8 +36,8 @@ namespace Minics.exe
             InstructionSet instructionSet = new InstructionSet();
             instructionSet.run(); 
 
-            Desensamblador desensamblador = new Desensamblador(ref instructionSet);
-            desensamblador.desensamblar("desensamblador_codigo/text.txt");
+            ModuloCodigo moduloCodigo = new ModuloCodigo(ref instructionSet);
+            moduloCodigo.obtenerInstrucciones("modulo_codigo/text.txt");
 
             instructionSet.printInstructionSet();
         }
