@@ -12,11 +12,31 @@ namespace InstructionsNameSpace{
         private Almacen almacenLocal {get; set;} //se define un almacén local para variables locales *** PUEDE QUE SE REQUIERA UNO POR CADA CONTEXTO PERO ESO DEBE DEFINIRSE ***
         private Pila pilaExprs {get; set;}
         private int actualInstrIndex {get; set;}
+
+        //Nota: lista de listas
+        private List<Almacen> almacenGLOBAL { get; set; }
+        private List<Almacen> almacenLOCAL { get; set; }
         
+        /*
+            COSAS QUE HACER:
+
+            1. Lista de alamcenes locales. (LISTO)
+            2. getValue: quitar val = 0;   (LISTO)
+            3: hacer el metodo public void return() parecido que el public void return_VALUE()
+            4: hacer el cullFunction()
+         */
         public InstructionSet(){
+
             instSet = new List<KeyValuePair<string,dynamic>>() ;
+            almacenGLOBAL = new List<Almacen>();
+            almacenLOCAL = new List<Almacen>();
+    
             almacenGlobal = new Almacen("Global");
             almacenLocal = new Almacen("Local");
+
+            almacenGLOBAL.Add(almacenGlobal);
+            almacenLOCAL.Add(almacenLocal);
+
             pilaExprs = new Pila();
             actualInstrIndex=0;
             //test();
@@ -28,19 +48,24 @@ namespace InstructionsNameSpace{
 
         public void runPUSH_LOCAL_I(string name){ //podría recibir el almacen del contexto en caso de que se requiera
             //declara el elemento "name" en el almacen LOCAL con valor por defecto 0
-            almacenLocal.setValue(name,0);
+            //almacenLocal.setValue(name,0);
+            almacenLOCAL[almacenLOCAL.Count-1].setValue(name,0);
+            
         }
         public void runPUSH_LOCAL_C(string name){ //podría recibir el almacen del contexto en caso de que se requiera
             //declara el elemento "name" en el almacen LOCAL con valor por defecto ''
-            almacenLocal.setValue(name,' ');
+            //almacenLocal.setValue(name,' ');
+            almacenLOCAL[almacenLOCAL.Count-1].setValue(name,' ');
         }
         public void runPUSH_GLOBAL_I(string name){
             //declara el elemento "name" en el almacen GLOBAL con valor por defecto 0
-            almacenGlobal.setValue(name,0);
+            //almacenGlobal.setValue(name,0);
+            almacenGLOBAL[almacenGLOBAL.Count-1].setValue(name,0);
         }
         public void runPUSH_GLOBAL_C(string name){
             //declara el elemento "name" en el almacen GLOBAL con valor por defecto ''
-            almacenLocal.setValue(name,' ');
+            //almacenLocal.setValue(name,' ');
+            almacenLOCAL[almacenLOCAL.Count-1].setValue(name,' ');
         }
         public void runDEF(string name){
 
@@ -52,27 +77,30 @@ namespace InstructionsNameSpace{
         public void runLOAD_FAST(string varname){ //podría recibir el almacen del contexto en caso de que se requiera
             //busca en el almacén LOCAL el valor asociado a "varname" y lo inserta en la pila
             dynamic val;
-            val = almacenLocal.getValue(varname); //EL GET VALUE DEBE DEVOLVER UN VALOR PARA PODERLO CARGAR A LA PILA
-            val=0;
+            //val = almacenLocal.getValue(varname); //EL GET VALUE DEBE DEVOLVER UN VALOR PARA PODERLO CARGAR A LA PILA
+            val = almacenLOCAL[almacenLOCAL.Count-1].getValue(varname);
             pilaExprs.push(val);
         }
         public void runSTORE_FAST(string varname){ //podría recibir el almacen del contexto en caso de que se requiera
             //almacena el contenido del tope de la pila en el almacén LOCAL para la variable "varname"
             dynamic tope=0;
             tope = pilaExprs.pop(); //debe sacar el elemento de la pila y devolver su valor
-            almacenLocal.setValue(varname,tope);
+            //almacenLocal.setValue(varname,tope);
+            almacenLOCAL[almacenLOCAL.Count-1].setValue(varname,tope);
         }
         public void runSTORE_GLOBAL(string varname){
             //almacena el contenido del tope de la pila en el almacén GLOBAL para la variable "varname"
             dynamic tope=0;
             tope = pilaExprs.pop(); //debe sacar el elemento de la pila y devolver su valor
-            almacenGlobal.updateValue(varname,tope);
+            
+            //almacenGlobal.updateValue(varname,tope);
+            almacenGLOBAL[almacenGLOBAL.Count-1].updateValue(varname,tope);
         }
         public void runLOAD_GLOBAL(string varname){
             //busca en el almacén GLOBAL el valor asociado a "varname" y lo inserta en la pila
             dynamic val;
-            val = almacenGlobal.getValue(varname); //EL GET VALUE DEBE DEVOLVER UN VALOR PARA PODERLO CARGAR A LA PILA
-            val=0;
+            //val = almacenGlobal.getValue(varname); //EL GET VALUE DEBE DEVOLVER UN VALOR PARA PODERLO CARGAR A LA PILA
+            val = almacenGLOBAL[almacenGLOBAL.Count-1].getValue(varname);
             pilaExprs.push(val);
         }
         public void runCALL_FUNCTION(int numparams){
@@ -279,7 +307,7 @@ namespace InstructionsNameSpace{
             Console.WriteLine("Set de instrucciones: ");
            //instSet.ForEach(Console.WriteLine(""));
             for(int i = 0; i < instSet.Count; i++){
-                Console.WriteLine(i + " " + instSet[i].Key + " " + instSet[i].Value);
+                Console.WriteLine(i + " " + instSet[i].Key + " " + instSet[i].Value);  
             }
         }
     }
