@@ -681,24 +681,27 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usuario.ANGELO\\.nuget\\packages\\": {},
+    "C:\\Users\\vinic\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario.ANGELO\\Desktop\\GitKraken\\Minics.exe\\Minics.exe.csproj",
+      "projectUniqueName": "C:\\Users\\vinic\\Documents\\GitKraken\\othelloweb-kvf\\Minics.exe\\Minics.exe.csproj",
       "projectName": "Minics.exe",
-      "projectPath": "C:\\Users\\Usuario.ANGELO\\Desktop\\GitKraken\\Minics.exe\\Minics.exe.csproj",
-      "packagesPath": "C:\\Users\\Usuario.ANGELO\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario.ANGELO\\Desktop\\GitKraken\\Minics.exe\\obj\\",
+      "projectPath": "C:\\Users\\vinic\\Documents\\GitKraken\\othelloweb-kvf\\Minics.exe\\Minics.exe.csproj",
+      "packagesPath": "C:\\Users\\vinic\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\vinic\\Documents\\GitKraken\\othelloweb-kvf\\Minics.exe\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Usuario.ANGELO\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\vinic\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.Fallback.config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"

@@ -141,22 +141,42 @@ namespace InstructionsNameSpace{
         public void runBINARY_ADD(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1+opn2);
+        
         }
         public void runBINARY_MULTIPLY(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1*opn2);
         }
+
         public void runBINARY_DIVIDE(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1/opn2);
         }
         public void runBINARY_AND(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1 && opn2);
         }
         public void runBINARY_OR(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1 || opn2);
+        
         }
         //PUEDE QUE ESTA NO SE OCUPE
         public void runBINARY_MODULO(){
@@ -169,9 +189,12 @@ namespace InstructionsNameSpace{
         }
         public void runJUMP_IF_TRUE(int target){
             //cambia el indice de la línea actual en ejecución a la indicada por "target" en caso de que el tope de la pila sea TRUE
+             actualInstrIndex=target;
         }
         public void runJUMP_IF_FALSE(int target){
             //cambia el indice de la línea actual en ejecución a la indicada por "target" en caso de que el tope de la pila sea FALSE
+             actualInstrIndex=target;
+
         }
 
         //método principal para correr todas las instrucciones de la lista... Este método debe recorrer la lista solo para agregar en el almacen global 

@@ -27,6 +27,8 @@ namespace Minics.exe
             moduloCodigo.obtenerInstrucciones("modulo_codigo/text.txt");
 
             instructionSet.printInstructionSet();
+
+            
         }
     }
 }
