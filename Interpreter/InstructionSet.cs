@@ -219,6 +219,8 @@ namespace InstructionsNameSpace{
                                 runMain();
                                 return; //espero que sea break del ciclo y no del switch
                             }
+                            else
+                                runDEF(instSet[actualInstrIndex].Value);
                             break;
                         
 
