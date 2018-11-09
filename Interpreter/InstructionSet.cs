@@ -65,7 +65,7 @@ namespace InstructionsNameSpace{
         public void runPUSH_GLOBAL_C(string name){
             //declara el elemento "name" en el almacen GLOBAL con valor por defecto ''
             //almacenLocal.setValue(name,' ');
-            almacenLOCAL[almacenLOCAL.Count-1].setValue(name,' ');
+            almacenGLOBAL[almacenGLOBAL.Count-1].setValue(name,' ');
         }
         public void runDEF(string name){
 
@@ -109,8 +109,13 @@ namespace InstructionsNameSpace{
         public void runRETURN_VALUE(){
             //lo referente a return value
         }
+
+        public void runRETURN(){
+            //lo referente a return void
+        }
         public void runEND(){
             //acaba la corrida y limpia/elimina las estructuras según sea el caso
+            System.Environment.Exit(1);
         }
         public void runCOMPARE_OP(string op){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
@@ -182,6 +187,9 @@ namespace InstructionsNameSpace{
         public void runBINARY_MODULO(){
             //obtiene dos operandos de la pila, opera según el operador y finalmente inserta el resultados de la operación en la pila
             //se asume que los valores son enteros, si no, se cae feo pero así debe ser... no hay mensajes de error
+            dynamic opn2= pilaExprs.pop();
+            dynamic opn1= pilaExprs.pop();
+            pilaExprs.push(opn1 % opn2);
         }
         public void runJUMP_ABSOLUTE(int target){
             //cambia el indice de la línea actual en ejecución a la indicada por "target"
@@ -189,11 +197,13 @@ namespace InstructionsNameSpace{
         }
         public void runJUMP_IF_TRUE(int target){
             //cambia el indice de la línea actual en ejecución a la indicada por "target" en caso de que el tope de la pila sea TRUE
-             actualInstrIndex=target;
+            if(pilaExprs.pop() == true)
+                actualInstrIndex=target;
         }
         public void runJUMP_IF_FALSE(int target){
             //cambia el indice de la línea actual en ejecución a la indicada por "target" en caso de que el tope de la pila sea FALSE
-             actualInstrIndex=target;
+            if(pilaExprs.pop() == false)
+                actualInstrIndex=target;
 
         }
 
