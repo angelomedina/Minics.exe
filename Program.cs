@@ -13,22 +13,18 @@ namespace Minics.exe
         {
             // dotnet run: correr c#
             Almacen almacen = new Almacen("almacen");
-        
+            InstructionSet instructionSet = new InstructionSet();
+            ModuloCodigo moduloCodigo = new ModuloCodigo(ref instructionSet);
+
         // ------------------------------------
 
             
 
         //------------------------------------   
 
-            InstructionSet instructionSet = new InstructionSet();
-            instructionSet.run(); 
-
-            ModuloCodigo moduloCodigo = new ModuloCodigo(ref instructionSet);
             moduloCodigo.obtenerInstrucciones("modulo_codigo/text.txt");
-
-            instructionSet.printInstructionSet();
-
-            
+            //instructionSet.printInstructionSet();
+            instructionSet.run(); 
         }
     }
 }

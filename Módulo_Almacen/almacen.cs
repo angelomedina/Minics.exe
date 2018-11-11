@@ -30,7 +30,8 @@ namespace AlmacenNameSpace
             foreach (dynamic item in this.test)
             {
                     if (item.Key == key ){
-                        Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value);
+                        //El comentario de abajo lo pueden descomentar para darle seguimiento a cada instrucción
+                        //Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value);
                         result = item.Value;
                     }
                     
@@ -43,7 +44,8 @@ namespace AlmacenNameSpace
         public bool searchValue(string key){
 
             if(this.test.ContainsKey(key)){
-                Console.WriteLine(key + " ITEM FOUND");
+                //El comentario de abajo lo pueden descomentar para darle seguimiento a cada instrucción
+                //Console.WriteLine(key + " ITEM FOUND");
                 return true;
             }
             return false;
@@ -57,19 +59,21 @@ namespace AlmacenNameSpace
                 Console.WriteLine("404 Item not found!");
             }
             else{
+                //El comentario de abajo lo pueden descomentar para darle seguimiento a cada instrucción
+                //Console.WriteLine(key + " ITEM UPDATED!");
                 this.test[key] = newValue;
-                Console.WriteLine(key + " ITEM UPDATED!");
+                
             
             }
         }
 
         // PRINT DICTIONARY
         public void printContainer(){
+            Console.WriteLine("Almacen->"+ this.nombre);
             foreach (dynamic item in this.test)
-                {
-                    Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value);
-                }
+            {
+                Console.WriteLine("Key: {0}, Value: {1}", item.Key, item.Value);
+            }
         }
-        
     }
 }

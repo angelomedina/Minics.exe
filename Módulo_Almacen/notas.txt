@@ -30,7 +30,7 @@
 
          6 LOAD_CONST 20
          7 STORE_FAST y
-         x = 10;
+         y = 20;
 
          8 LOAD_FAST x
          9 STORE_FAST temp

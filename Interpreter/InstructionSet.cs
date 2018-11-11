@@ -23,19 +23,21 @@ namespace InstructionsNameSpace{
             1. Lista de alamcenes locales. (LISTO)
             2. getValue: quitar val = 0;   (LISTO)
             3: hacer el metodo public void return() parecido que el public void return_VALUE()
-            4: hacer el cullFunction()
+            4: hacer el cullFunction() (LISTO)
          */
         public InstructionSet(){
 
-            instSet = new List<KeyValuePair<string,dynamic>>() ;
+            instSet = new List<KeyValuePair<string,dynamic>>();
             almacenGLOBAL = new List<Almacen>();
             almacenLOCAL = new List<Almacen>();
     
             almacenGlobal = new Almacen("Global");
             almacenLocal = new Almacen("Local");
 
+            almacenGlobal.setValue("write","write");
+
             almacenGLOBAL.Add(almacenGlobal);
-            almacenLOCAL.Add(almacenLocal);
+            //almacenLOCAL.Add(almacenLocal);
 
             pilaExprs = new Pila();
             actualInstrIndex=0;
@@ -68,7 +70,7 @@ namespace InstructionsNameSpace{
             almacenGLOBAL[almacenGLOBAL.Count-1].setValue(name,' ');
         }
         public void runDEF(string name){
-
+            almacenGlobal.setValue(name, name);
         }
         public void runLOAD_CONST(dynamic constant){
             //carga en la pila el valor entero contenido en "constant"
@@ -86,7 +88,7 @@ namespace InstructionsNameSpace{
             dynamic tope=0;
             tope = pilaExprs.pop(); //debe sacar el elemento de la pila y devolver su valor
             //almacenLocal.setValue(varname,tope);
-            almacenLOCAL[almacenLOCAL.Count-1].setValue(varname,tope);
+            almacenLOCAL[almacenLOCAL.Count-1].updateValue(varname,tope);
         }
         public void runSTORE_GLOBAL(string varname){
             //almacena el contenido del tope de la pila en el almacén GLOBAL para la variable "varname"
@@ -105,13 +107,39 @@ namespace InstructionsNameSpace{
         }
         public void runCALL_FUNCTION(int numparams){
             //lo referente a call function
+            dynamic func = this.pilaExprs.pop(); //Sacar el nombre de la funcion de pila
+            if(func.Equals("write"))
+            {
+                Console.WriteLine(this.pilaExprs.pop());
+            }
+            else if(func.Equals(this.instSet[numparams -1].Value)) // Comparar que el nombre de la funcion sea igual que el de la pila
+            {
+                Almacen local = new Almacen(Convert.ToString(this.actualInstrIndex)); // Crear un nuevo almacen local
+                this.actualInstrIndex = numparams - 1;
+                this.almacenLOCAL.Add(local);
+            }
         }
         public void runRETURN_VALUE(){
-            //lo referente a return value
+            dynamic tope=0;
+            tope = pilaExprs.pop(); //debe sacar el elemento de la pila y devolver su valor
+            //Para verificar que esta devolviendo un valor
+            Almacen almacenActual = this.almacenLOCAL[this.almacenLOCAL.Count - 1];//Respaldar almacen local
+            this.almacenLOCAL.RemoveAt(this.almacenLOCAL.Count - 1);//Eliminar el ultimo almacen local
+            // por motivo de que se esta terminando de ejecutar la funcion
+            this.actualInstrIndex = Convert.ToInt32(almacenActual.nombre);//El nombre va a contener el numero
+            // de salto al que tiene que ir para seguir ejecutando
+            pilaExprs.push(tope);//El sacar de la pila y volver a meterlo es una forma de verificar
+            // que el return es el correcto
         }
 
         public void runRETURN(){
-            //lo referente a return void
+
+            Almacen almacenActual = this.almacenLOCAL[this.almacenLOCAL.Count - 1];//Respaldar almacen local
+            this.almacenLOCAL.RemoveAt(this.almacenLOCAL.Count - 1);//Eliminar el ultimo almacen local
+            // por motivo de que se esta terminando de ejecutar la funcion
+            this.actualInstrIndex = Convert.ToInt32(almacenActual.nombre);//El nombre va a contener el numero
+            // de salto al que tiene que ir para seguir ejecutando
+
         }
         public void runEND(){
             //acaba la corrida y limpia/elimina las estructuras según sea el caso
@@ -213,15 +241,17 @@ namespace InstructionsNameSpace{
         public void run(){
             while (actualInstrIndex <= instSet.Count-1)
             {
+                //El comentario de abajo lo pueden descomentar para darle seguimiento a cada instrucción
+                //Console.WriteLine(actualInstrIndex + "-Entro a "+ instSet[actualInstrIndex].Key + " con valor( " + instSet[actualInstrIndex].Value + " )");
                 if (instSet[actualInstrIndex].Key.Equals("PUSH_GLOBAL_I")||
                 instSet[actualInstrIndex].Key.Equals("PUSH_GLOBAL_C")||
                 instSet[actualInstrIndex].Key.Equals("DEF")){
                     switch(instSet[actualInstrIndex].Key){
                         case "PUSH_GLOBAL_I": 
-                            almacenGlobal.setValue(instSet[actualInstrIndex].Value,0);                            
+                            almacenGlobal.setValue(Convert.ToString(instSet[actualInstrIndex].Value),0);                            
                             break;
                         case "PUSH_GLOBAL_C": 
-                            almacenGlobal.setValue(instSet[actualInstrIndex].Value,' ');                            
+                            almacenGlobal.setValue(Convert.ToString(instSet[actualInstrIndex].Value),' ');                            
                             break;
                         case "DEF": 
                             if (instSet[actualInstrIndex].Value.Equals("Main")){
@@ -233,45 +263,51 @@ namespace InstructionsNameSpace{
                                 runDEF(instSet[actualInstrIndex].Value);
                             break;
                         
-
                     //debería llamarse a runXXXXX de cada instrucción para toda la lista en orden ascendente
                     }
-                    Console.WriteLine(instSet[actualInstrIndex].Key + " " + instSet[actualInstrIndex].Value);
                 }
                 actualInstrIndex++;
+            }
+            foreach(Almacen a in this.almacenGLOBAL){
+                a.printContainer();
+            }
+            foreach(Almacen a in this.almacenLOCAL){
+                a.printContainer();
             }
         }
 
         public void runMain(){
             while (actualInstrIndex <= instSet.Count-1)
             {
+                //El comentario de abajo lo pueden descomentar para darle seguimiento a cada instrucción
+                //Console.WriteLine(actualInstrIndex + "-Entro a "+ instSet[actualInstrIndex].Key + " con valor( " + instSet[actualInstrIndex].Value + " )");
                 switch(instSet[actualInstrIndex].Key){
                         case "PUSH_LOCAL_I":
-                            runPUSH_LOCAL_I(instSet[actualInstrIndex].Value);
+                            runPUSH_LOCAL_I(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "PUSH_LOCAL_C":
-                            runPUSH_LOCAL_C(instSet[actualInstrIndex].Value);
+                            runPUSH_LOCAL_C(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "PUSH_GLOBAL_I":
-                            runPUSH_GLOBAL_I(instSet[actualInstrIndex].Value);
+                            runPUSH_GLOBAL_I(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "PUSH_GLOBAL_C":
-                            runPUSH_GLOBAL_C(instSet[actualInstrIndex].Value);
+                            runPUSH_GLOBAL_C(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "LOAD_CONST":
                             runLOAD_CONST(instSet[actualInstrIndex].Value);
                             break;
                         case "LOAD_FAST":
-                            runLOAD_FAST(instSet[actualInstrIndex].Value);
+                            runLOAD_FAST(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "STORE_FAST":
-                            runSTORE_FAST(instSet[actualInstrIndex].Value);
+                            runSTORE_FAST(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "STORE_GLOBAL":
-                            runSTORE_GLOBAL(instSet[actualInstrIndex].Value);
+                            runSTORE_GLOBAL(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "LOAD_GLOBAL":
-                            runLOAD_GLOBAL(instSet[actualInstrIndex].Value);
+                            runLOAD_GLOBAL(Convert.ToString(instSet[actualInstrIndex].Value));
                             break;
                         case "CALL_FUNCTION":
                             runCALL_FUNCTION(instSet[actualInstrIndex].Value);
@@ -316,12 +352,12 @@ namespace InstructionsNameSpace{
                             runJUMP_IF_FALSE(instSet[actualInstrIndex].Value);
                             break;
                 }
-                Console.WriteLine(instSet[actualInstrIndex].Key + " " + instSet[actualInstrIndex].Value); 
                 actualInstrIndex++; 
             }
         }
 
-        /* public void test(){
+        /* Prueba de codigo
+        public void test(){
             addInst("PUSH_GLOBAL_I","n");
             addInst("PUSH_GLOBAL_C","res");
             addInst("DEF","test");
@@ -335,8 +371,8 @@ namespace InstructionsNameSpace{
             addInst("BINARY_SUBSTRACT",null);
             addInst("STORE_GLOBAL","n");
             addInst("END",null);
-        }*/
-
+        }
+        */
         public void printInstructionSet(){
             Console.WriteLine();
             Console.WriteLine("Set de instrucciones: ");

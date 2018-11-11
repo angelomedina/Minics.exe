@@ -64,3 +64,14 @@ C:\Users\vinic\Documents\GitKraken\othelloweb-kvf\Minics.exe\obj\Debug\netcoreap
 C:\Users\vinic\Documents\GitKraken\othelloweb-kvf\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.AssemblyInfo.cs
 C:\Users\vinic\Documents\GitKraken\othelloweb-kvf\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.dll
 C:\Users\vinic\Documents\GitKraken\othelloweb-kvf\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.pdb
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\bin\Debug\netcoreapp2.1\Minics.exe.deps.json
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\bin\Debug\netcoreapp2.1\Minics.exe.runtimeconfig.json
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\bin\Debug\netcoreapp2.1\Minics.exe.runtimeconfig.dev.json
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\bin\Debug\netcoreapp2.1\Minics.exe.dll
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\bin\Debug\netcoreapp2.1\Minics.exe.pdb
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.csprojAssemblyReference.cache
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.csproj.CoreCompileInputs.cache
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.AssemblyInfoInputs.cache
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.AssemblyInfo.cs
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.dll
+C:\Users\Kezo\Documents\GitProjects\Minics.exe\obj\Debug\netcoreapp2.1\Minics.exe.pdb
